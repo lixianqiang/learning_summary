@@ -19,10 +19,13 @@ xxx.cc与xxx.h均放在src文件夹
 行注释：行尾空一格进行注释,行与行之间的注释对齐，美观为主
 TODO注释 （短期方案，待优化代码）
 邮箱，名字，bugID，注释内容
-例子：
+例子1：
+funcA(const int& paramA); //空一格后进行单行注释
+例子2：
 // TODO(kl@gmail.com): Use a "*" here for concatenation operator.
 // TODO(Zeke) change this to use relations.
 // TODO(bug 12345): remove the "Last visitors" feature
+
 
 #include 排序要求
 1. 当前源文件对应的头文件
@@ -44,8 +47,11 @@ include与<>之间留有一个空格，如：#include <cmath>
 
 宏定义 全部大写
 例子：
-#ifndef MYCODESTYLE_H_
 #define PI 3.1415926;
+#ifndef MYCODESTYLE_H_
+.....
+#endif //MYCODESTYLE_H_
+结尾附上定义注释
 
 
 变量命名规范
@@ -59,13 +65,13 @@ include与<>之间留有一个空格，如：#include <cmath>
 int font_color;
 const c_value_type;
 enum e_Colors
-    {
+{
     Colors_red;
     Colors_blue;
     Colors_green;
 }
 struct TextFormat
-    {
+{
     paragraph_format;
     paragraph_size;
     paragraph_font;
@@ -76,24 +82,38 @@ struct TextFormat
 函数名 小驼峰写法 动词/形容词+名词+类型属性
 函数参数 输入在前 输出在后
   输入参数 const&+参数名
-  特殊情况如：在输入参数为函数指针时可用 const*+参数名
-  特殊情况如：传入的值本身需要随函数调用而变化的，用值的指针作为输入形参，用 const*+参数名
+    特殊情况如：在输入参数为函数指针时可用 const*+参数名
+    特殊情况如：传入的值本身需要随函数调用而变化的，用值的指针作为输入形参，用 const*+参数名
 每行代码不超过80个字符，超过则进行分行，且形参对齐
-分行时，不要在 return 表达式里加上非必须的圆括号，除非含有复杂表达式
-
-c++特性第6章
-如果你向一个函数传入 const 变量, 函数原型声明中也必须对应 const 参数 (否则变量需要 const_cast 类型转换), 在调用库函数时显得尤其麻烦.
-
-
-
+return 不加"()"，除非含有复杂表达式，如：return(sqrt(pow(x1-x2,2)+pow(y1-y2,2)));
 例子：
 int setFontStyle(const int& num,const double& text,const string& data_type,
-                  string paramA,int paramB)
+                 string paramA,int paramB)
 {
   .....
   .....
   return unnknow_param;
 }
+
+
+
+操作符 运算符 = + - * / < > <= >= == && ! ++ --
+"="
+赋值操作符要求前后均留空格
+"+" "-" "*" "/" "<" ">" "<=" ">=" "==" "&&"
+上述其它二元操作符也前后留有空格, 但对于复杂的表达式的子式不加空格，对总式前后留有空格
+圆括号内部没有紧邻空格
+"!" "++" "--"
+在参数和一元操作符之间不加空格
+例子：
+v = w * x;
+v = w*x + y/z;
+v = w * (x+z);
+x = -5;
+++x;
+if (x && !y)
+...
+
 
 
 条件语句 if...else
@@ -123,7 +143,7 @@ void MyCodeStyle::getFontColors(const int& num) {}
 class MyCodeStyle
 {
     public
-      string getTextContent(string& content)
+      string getTextContent(const string& content)
       {
         return(this->text_ = content);
       }
@@ -134,14 +154,17 @@ class MyCodeStyle
 
 命名空间命名规范
 命名空间  上级：项目名/团队名；下级：工程名
+空间别名
+    在对应命名空间的.h文件底部添加
 结尾附上命名空间的注释
-namespace Foo
+禁止使用 using namespace xxx;
+可以使用 using 命名空间::标识符(标识符是指：类名，函数名，参数名，[次级命名空间不算])
+例子：
+namespace CppCodeStyle
 {
-
-}// namespace Foo
-
-
-
+......
+}// namespace CppCodeStyle
+namespace cppcodsty = CppCodeStyle;
 
 
 
@@ -195,7 +218,7 @@ struct TextFormat //结构体 大驼峰写法
 //每行代码不超过80个字符
 void setFooText(const int& a,const int& b,int& out) //","后面不空格
 {
-  for(int i=0; i<a; i++) //循环语句";"后面空一个空格
+  for(int i = 0;i < a;i++) //循环语句";"后面空一个空格
   {
     if(i < b) //条件语句就算只有一行代码也要{}
     {
@@ -220,11 +243,16 @@ void bugFun(int i)
   counter += i;
 }
 
-  namespace Foo
-  {
+namespace Foo
+{
+namespace Bar
+{
+.....
+}
+} //namespace Foo
+namespace FB = Foo::Bar
 
 
-  }
 // 类名 大驼峰写法 名词+类型属性
 // 类函数 小驼峰写法 动词/形容词+名词+类型属性
 // 类数据成员 变量名+_
