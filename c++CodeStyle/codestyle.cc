@@ -57,6 +57,10 @@ include与<>之间留有一个空格，如：#include <cmath>
 变量命名规范
 普通变量 全部小写 下划线相间
 常量 全部小写 下划线相间 前缀c_+变量名
+静态变量 全部小写 下划线相间
+  变量为对象时 (为减少实例化所需时间)
+  变量需要迭代时 (为保留上一时刻的值)
+  变量作为局部静态常数 static const+变量;(为减少重复计算，且不作为全局变量）
 枚举型 大驼峰写法 前缀e_+变量名(复数)
   枚举型成员 全部小写 下划线相间 前缀(枚举变量名)_+数值名
 结构体 大驼峰写法 全部小写 下划线相间
@@ -64,6 +68,7 @@ include与<>之间留有一个空格，如：#include <cmath>
 例子：
 int font_color;
 const c_value_type;
+static var_value;
 enum e_Colors
 {
     Colors_red;
@@ -76,7 +81,6 @@ struct TextFormat
     paragraph_size;
     paragraph_font;
 }
-
 
 函数命名规范
 函数名 小驼峰写法 动词/形容词+名词+类型属性
