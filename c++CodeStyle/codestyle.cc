@@ -1,7 +1,7 @@
 源文件以.cpp为后缀，如：mycodestyle.cpp
 头文件以.h为后缀， 如：mycodestyle.h
-xxx.cc与xxx.h均放在src文件夹
-
+编写时源文件与头文件均放在src文件夹
+安装时对应分开存放
 
 注释的两种方法
 方法1
