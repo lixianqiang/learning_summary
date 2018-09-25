@@ -1,3 +1,7 @@
+文件，文件夹命名
+全部小写，下划线相间
+
+
 源文件以.cpp为后缀，如：mycodestyle.cpp
 头文件以.h为后缀， 如：mycodestyle.h
 编写时源文件与头文件均放在src文件夹
@@ -252,7 +256,7 @@ namespace Bar
 {
 .....
 }
-} //namespace Foo
+}  //namespace Foo
 namespace FB = Foo::Bar
 
 
