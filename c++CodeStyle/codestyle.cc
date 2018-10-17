@@ -108,13 +108,14 @@ struct TextFormat
 
 函数命名规范
 函数名 小驼峰写法 动词/形容词+名词+类型属性
-函数参数 输入在前 输出在后
-  输入参数 const 类型&+参数名
+函数参数 输入在前(常引用类型) 输出在后(指针类型)
+  输入参数，即 const 类型&+参数名
     特殊情况如：在输入参数为函数指针时可用 const 类型*+参数名
     特殊情况如：传入的值本身需要随函数调用而变化的，用值的指针作为输入形参，用 const 类型*+参数名
-  输出参数 类型*+参数名
+  输出参数，即 类型*+参数名
 每行代码不超过80个字符，超过则进行分行，且形参对齐
-return 不加"()"，除非含有复杂表达式，如：return(sqrt(pow(x1-x2,2)+pow(y1-y2,2)));
+return 不加"()"，除非含有复杂表达式，如：return(sqrt(pow(x1-x2,2)+pow(y1-y)
+
 例子：
 void setFontStyle(const double& num,const double& text,const string& data_type,
                  string* outputA,double* outputB)
@@ -153,11 +154,14 @@ if (x && !y)
 
 开关语句 switch...case...default
 代码数量较少时，执行语句不需要放进"{}"
-代码数量较多时，执行语句全部在"{}"进行，并且全部统一使用
+代码数量较多时，执行语句全部在"{}"进行，并且
+全部统一使用
 
 
 类命名规范
 类名 大驼峰写法 名词+类型属性
+构造函数 形参为非引用类型(可以为引用，但不提倡)
+   构造函数的形参为非引用原因：当参数参与内部构造时，要保证生存期长于该类，否则会引起不必要的错误
 类函数
    公有 小驼峰写法 动词/形容词+名词+类型属性
    私有 小驼峰写法 动词/形容词+名词+类型属性
@@ -176,56 +180,80 @@ if (x && !y)
    私有数据成员 变量名+_
    私有对象成员 this->对象名+_
 
-初始化列表:基类名(形参),对象成员名(形参),数据成员名(形参)
-   基类名(形参)实质就是该基类的构造函数
+例子：
+class MyCodeStyleText{...} //名词+类型属性
+class MyCodeStyle{...}
+MyCodeStyle::MyCodeStyle(double a){...} //构造函数的形参为非引用类型型
+void MyCodeStyle::getFontColorsText(const double& num){...} //动词+名词+类型属性
+void MyCodeStyle::getFontColors(const double& num){...}
 
-例子1：名词+类型属性
-class MyCodeStyleText {...} //名词+类型属性
-class MyCodeStyle {...}
-void MyCodeStyle::getFontColorsText(const double& num) {} //动词+名词+类型属性
-void MyCodeStyle::getFontColors(const double& num) {}
-例子2：
+
+类定义书写规范
+class 类名：<继承方式>:<基类名>
+{
+ public:
+   类名(); //构造函数，不带参数，类外定义
+   类名(参数名) //构造函数，带参数，非引用类型，类外定义
+   ~类名(){......}; //析构函数，类内定义
+   函数a(int& b); //公有函数，类外定义
+   函数b(int& c){...} //公有函数，类内定义
+ private:
+   其他类 对象a //对象成员
+}
+
+类名::类名():基类名(参数b),对象a(参数c)
+{
+  数据成员名(参数d)
+  构造函数的其他初始化操作....
+}
+
+类名::类名(参数a):基类名(参数b),对象a(参数c)
+{
+  数据成员名(参数d)
+  构造函数的其他初始化操作....
+}
+
+类名::函数a(int& b)
+{
+  ......
+}
+初始化列表在c++用处：执行基类的构造以及内嵌对象的初始化
+
+例子：
 class MyCodeStyle:public Rectangle,public Controller
 {
     public:
-      MyCodeStyle():Rectangle(12),Controller("try"),ctrller("another")
-      {
-        ......
-      }
-      void getTextContent(const string& content) //公有函数成员
-      {
-        this->countNumString(10); //类内使用公有函数成员
-        this->fontsize = num; //类内使用公有数据成员
-        this->ctrllerA(1); //类内使用公有对象成员
-        stringnum_val_ = num; //类内使用私有数据成员
-        this->ctrllerB_(1); //类内使用私有对象成员
-      }
-      void countNumString(const double& num){...} //公有函数成员
+      MyCodeStyle()；//构造函数，不带参数，类外定义
+      MyCodeStyle(int b); //构造函数，带参数，非引用类型，类外定义
+      ~MyCodeStyle(){...} //析构函数，类内定义
+      void getTextContent(const string& content); //公有函数成员,在类外定义
+      void countNumString(const double& num){...} //公有函数成员,在类内定义
       double fontsize; //公有数据成员
       Controller ctrllerA; //公有对象成员
     private:
       double stringnum_val_; //私有数据成员
       Controller ctrllerB_; //私有对象成员
 }
-class Rectangle
+
+MyCodeStyle::MyCodeStyle():Rectangle(12),Controller("try"),ctrller("another")
 {
-    public:
-      Rectangle(double i)
-      {
-        ......
-      }
-    private:
+  ......
 }
-class Controller
+
+MyCodeStyle::MyCodeStyle(int b):Rectangle(12),Controller("try"),ctrller("another")
 {
-    public:
-      Controller(string text)
-      {
-        ......
-      }
-      funA(const double& a){...}
-    private:
+  ......
 }
+
+void MyCodeStyle::getTextContent(const string& content) //公有函数成员
+{
+  this->countNumString(10); //类内使用公有函数成员
+  this->fontsize = num; //类内使用公有数据成员
+  this->ctrllerA(1); //类内使用公有对象成员
+  stringnum_val_ = num; //类内使用私有数据成员
+  this->ctrllerB_(1); //类内使用私有对象成员
+}
+
 组合与继承
 另一个类是当前类的一个属性时，即：当关系满足"有一个"的时候，使用组合
 另一个类是当前类的一种关系时，即：当关系满足"是一个"的时候，使用继承
@@ -233,9 +261,8 @@ class Controller
 
 
 命名空间命名规范
-命名空间  上级：项目名/团队名；下级：工程名
-空间别名
-    在对应命名空间的.h文件底部添加
+命名空间 上级：项目名/团队名；下级：工程名
+空间别名 在对应命名空间的.h文件底部添加
 结尾附上命名空间的注释
 禁止使用 using namespace xxx;
 可以使用 using 命名空间::标识符(标识符是指：类名，函数名，参数名，[次级命名空间不算])
@@ -244,8 +271,10 @@ namespace CppCodeStyle
 {
 ......
 } //namespace CppCodeStyle
-namespace cppcodsty = CppCodeStyle;
+namespace cppcodsty = CppCodeStyle; //空间别名
 
+using namespace cppcodsty; //禁止使用
+using cppcodesty::标识符； //可以使用
 
 
 风格实例
@@ -339,7 +368,7 @@ namespace FB = Foo::Bar
 class CodeStyle
 {
   public:
-    CodeStyle(double font, double rgb):size_(font),color_(rgb);
+    CodeStyle(double font, double rgb);
     void getTextContent(string& text)
     {
       string out_content = text;
@@ -352,5 +381,7 @@ class CodeStyle
     double color_;
 };
 
-
-}  //namespace Foo
+CodeStyle::CodeStyle(double font, double rgb):size_(font),color_(rgb)
+{
+  .....
+}
