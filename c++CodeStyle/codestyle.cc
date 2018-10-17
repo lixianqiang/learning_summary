@@ -75,9 +75,11 @@ include与<>之间留有一个空格，如：#include <cmath>
 变量命名规范
 普通变量 全部小写 下划线相间
 常量 全部小写 下划线相间 前缀c_+变量名
+全局变量 全部小写 下划线相间 _+变量名
 指针变量 全部小写 下划线相间
 静态变量 全部小写 下划线相间
-  static 类型 对象名
+  static 类型 对象名 
+  static 类型 变量名（仅用于一次性的初始化）
   static const 类型 c_变量名 = 初始赋值（用作静态常量）
 枚举型 大驼峰写法 前缀e_+变量名(复数)
   枚举型成员 全部小写 下划线相间 前缀(枚举变量名)_+数值名
@@ -87,6 +89,7 @@ include与<>之间留有一个空格，如：#include <cmath>
 例子：
 double font_color;
 const double c_value_type;
+double _goabalval;
 static double objA;
 static const double var_value = 0;
 enum e_Colors
