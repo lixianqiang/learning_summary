@@ -1,45 +1,79 @@
-文件夹命名规范
-全部小写 下划线相间
+文件夹命名规范：全部小写，下划线相间
+  my_style
 
 
-文件命名规范
-全部小写
+文件命名规范：全部小写
+源文件命名格式：xxx.cpp
+  mycodestyle.cpp
+头文件命名格式：xxx.h
+  mycodestyle.h
 
 
-源文件以.cpp为后缀，如：mycodestyle.cpp
-头文件以.h为后缀， 如：mycodestyle.h
-编写时源文件与头文件均放在src文件夹
-安装时对应分开存放
-
-
-注释命名规范
-段注释："//"或"/*"后空一格进行注释，段与段之间的注释对齐，美观为主，每段一句(最多不超过两句)
-注释的两种方法
-方法1
-/*
- *注释内容.........
- *
- */
-
-方法2
-//
-// 注释内容.........
-//
-//
+注释命名规范：文件注释，段注释（类/函数注释），行注释（代码注释），TODO注释（短期方案，待优化代码）
+文件注释：头/源文件首行位置，版权，作者信息，文件描述，版本信息(含重大修改)，
+段注释：类声明（函数声明）、类实现（函数实现）
 行注释：行尾空一格进行注释,"//"后紧接注释内容，行与行之间的注释对齐，美观为主
-void funA()
-{
-  ....
-} //注释内容........
-TODO注释 （短期方案，待优化代码）
-邮箱，名字，bugID，注释内容
-例子1：
-funcA(const double& paramA); //空一格后进行单行注释
-例子2：
-// TODO(kl@gmail.com): Use a "*" here for concatenation operator.
-// TODO(Zeke) change this to use relations.
-// TODO(bug 12345): remove the "Last visitors" feature
+TODO注释：描述内容
 
+/**************************************************************************
+
+Copyright: MyCompany   //版权声明
+
+License: GPL
+
+Author: Lxq            //作者名字
+
+Date: 2018-12-23       //创建日期
+
+Description: This Is My Own C++ CodeStyle File   //文件描述
+
+***************************************************************************/
+
+// 段注释：类声明/函数声明
+// This is a codestyle class used in generate interrelated code format           
+// Funciton changeFrontSize(sring& name) using ......                            
+// ......      																	 																	 
+class MyCodeStyle																 
+{																				 
+	public:																			
+		MyCodeStyle();															    
+		void changeFontShape(string& name);             						    
+		bool resetOptinon(bool exec);													
+		private:																	
+		int fontSize;															 
+		String fontShape
+}
+
+// 段注释：类实现/函数实现
+// This function can change font shape user will need 
+// Parameter name is represent the shape of system provided
+void MyCodeStyle::changeFontShape(string& name)
+{
+	bool result = font(name);
+	
+	if(result == true)
+	{
+		std::cout << "change successful" << std::endl;
+	}
+	else
+	{	//行注释：代码块解释 
+		resetOptinon(result); //if failed to change that will reset defualt option for font shape
+	}
+}
+
+// TODO注释：短期方案，待优化代码
+// this function still not finished yet
+bool MyCodeStyle::resetOptinon(bool exec)
+{
+	if(exec == true)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 #include 排序要求
 1. 当前源文件对应的头文件
@@ -71,39 +105,47 @@ include与<>之间留有一个空格，如：#include <cmath>
 #endif //MYCODESTYLE_H_
 结尾附上定义注释
 
+小驼峰式：(lower camel case)
+第一个单词以小写字母开始；第二个单词的首字母大写
+大驼峰式：(upper camel case)
+每个单词的第一个字母都大写;
 
-变量命名规范
-普通变量 全部小写 下划线相间
-常量 全部小写 下划线相间 前缀c_+变量名
-全局变量 全部小写 下划线相间 _+变量名
-指针变量 全部小写 下划线相间
-静态变量 全部小写 下划线相间
-  static 类型 对象名 
-  static 类型 变量名（用于一次性的初始化/若用于局部全局则定义后需要进行赋值操作）
-  static const 类型 c_变量名 = 初始赋值（用作静态常量）
-枚举型 大驼峰写法 前缀e_+变量名(复数)
-  枚举型成员 全部小写 下划线相间 前缀(枚举变量名)_+数值名
-结构体 大驼峰写法 全部小写 下划线相间
-  结构体成员 全部小写 下划线相间
-联合体 大驼峰写法 下划线相间
-例子：
-double font_color;
-const double c_value_type;
-double _goabalval;
-static double objA;
-static const double var_value = 0;
-enum e_Colors
+变量命名规范 （前缀组合代表变量类型）
+普通变量 小驼峰  			double fontColor;
+常量     小驼峰 c_+变量名   const double c_valueType;
+全局变量 小驼峰 g_+变量名   double g_goabalval;
+指针变量 小驼峰 p_+变量名   vector<int> p_iter;
+静态变量 小驼峰 s_+变量名   static s_inputSystem;
+
+枚举型 大驼峰 
+  枚举型成员 小驼峰
+枚举变量 小驼峰 e_+变量名
+enum Color
 {
-    Colors_red;
-    Colors_blue;
-    Colors_green;
-}
+    red;
+    blue;
+    green;
+} e_setRGBColor;
+
+联合体 大驼峰 
+  联合体成员 小驼峰
+联合体成员 小驼峰 u_+变量名
+union EncoderData
+{
+	unsigned char trickValue;
+	float odomValue;
+} u_wheelCount;
+
+结构体 大驼峰 
+  结构体成员 小驼峰
+结构体变量 小驼峰
+（C++中结构体与类没本质区别，故结构体变量与类对象相同）
 struct TextFormat
 {
     format;
     size;
     font;
-}
+} 
 
 
 函数命名规范
@@ -385,3 +427,43 @@ CodeStyle::CodeStyle(double font, double rgb):size_(font),color_(rgb)
 {
   .....
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+my_style
+	mycodestyle.h
+	mycodestyle.cpp
+
+mycodestyle.h
+#include <math>     // c头文件
+
+#include <iostream> // c++ 头文件
+#include <vector>   // c++头文件
+
+#include <boost>      // 其他库的头文件
+#include <ros/ros.h>  // 其他库的头文件
+#include <geometry_msgs/Pose.h> // 其他库的头文件
+
+class mycodestyle
+{
+	publish
+}
+
