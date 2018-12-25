@@ -3,10 +3,10 @@
 
 
 文件命名规范：全部小写
-源文件命名格式：xxx.cpp
-  mycodestyle.cpp
 头文件命名格式：xxx.h
+源文件命名格式：xxx.cpp 
   mycodestyle.h
+  mycodestyle.cpp
 
 
 注释命名规范：文件注释，段注释（类/函数注释），行注释（代码注释），TODO注释（短期方案，待优化代码）
@@ -75,40 +75,40 @@ bool MyCodeStyle::resetOptinon(bool exec)
 	}
 }
 
-#include 排序要求
-1. 当前源文件对应的头文件
-2. 本项目内其他头文件
-3. C系统头文件
-4. C++系统头文件
-5. 其他库的头文件
-#include头文件时优先所使用"",后使用<>
-include与<>之间留有一个空格，如：#include <cmath>
-每一项作为一个大类，空一行隔开，具体参考风格实例
-例子：
-#include "mycodestyle.h"
-// 当前源文件对应的头文件
-#include <Foo.h>
-// 本项目内其他头文件空一格
-#include <math.h>
-// C系统头文件
-#include <iostream>
-// C++系统头文件
-#include <Boost>
-#include <ros/ros.h>
-// 其他库的头文件
 
-宏定义 全部大写
-例子：
-#define PI 3.1415926;
+命名空间命名规范
+命名空间 上级：项目名/团队名；下级：工程名
+空间别名 在对应命名空间的.h文件底部添加
+禁止使用 using namespace xxx;但可以使用 using 命名空间::标识符(标识符是指：类名，函数名，参数名，[次级命名空间不算])
+
 #ifndef MYCODESTYLE_H_
-.....
-#endif //MYCODESTYLE_H_
-结尾附上定义注释
+#define MYCODESTYLE_H_
 
-小驼峰式：(lower camel case)
-第一个单词以小写字母开始；第二个单词的首字母大写
-大驼峰式：(upper camel case)
-每个单词的第一个字母都大写;
+#include "mycodestyle.h" //当前源文件对应的头文件
+#include <Foo.h> //本项目内其他头文件空一格
+
+#include <math.h>   //C系统头文件
+
+#include <iostream> //C++系统头文件
+#include <vector>   //C++系统头文件
+
+#include <Boost>     //第三方库的头文件
+#include <ros/ros.h> //第三方库的头文件
+#define PI 3.1415926; //宏定义 全部大写
+
+namespace CppCodeStyle
+{
+	...
+	...
+	...
+} //namespace CppCodeStyle  /****结尾附上命名空间的注释****/
+
+#endif //MYCODESTYLE_H_  /*****结尾附上定义注释*****/
+namespace ccs = CppCodeStyle; //空间别名
+
+// using namespace cppcodsty; //禁止使用
+using cppcodesty::标识符； //可以使用
+
 
 变量命名规范 （前缀组合代表变量类型）
 普通变量 小驼峰  			double fontColor;
@@ -116,75 +116,148 @@ include与<>之间留有一个空格，如：#include <cmath>
 全局变量 小驼峰 g_+变量名   double g_goabalval;
 指针变量 小驼峰 p_+变量名   vector<int> p_iter;
 静态变量 小驼峰 s_+变量名   static s_inputSystem;
+枚举型变量 小驼峰 e_+变量名 Color e_setRGBColor；
+联合体变量 小驼峰 u_+变量名 EncoderData u_wheelCount；
+结构体变量 小驼峰           TextFormat strctType 
+（C++中结构体与类没本质区别，故结构体变量与类对象相同）
 
 枚举型 大驼峰 
   枚举型成员 小驼峰
-枚举变量 小驼峰 e_+变量名
 enum Color
 {
     red;
     blue;
     green;
-} e_setRGBColor;
+}
 
 联合体 大驼峰 
   联合体成员 小驼峰
-联合体成员 小驼峰 u_+变量名
 union EncoderData
 {
 	unsigned char trickValue;
 	float odomValue;
-} u_wheelCount;
+}
 
 结构体 大驼峰 
   结构体成员 小驼峰
-结构体变量 小驼峰
-（C++中结构体与类没本质区别，故结构体变量与类对象相同）
 struct TextFormat
 {
-    format;
-    size;
-    font;
-} 
-
+    std::string format;
+    int size;
+    std::vector<string> font;
+}
 
 函数命名规范
-函数名 小驼峰写法 动词/形容词+名词+类型属性
-函数参数 输入在前(常引用类型) 输出在后(指针类型)
-  输入参数，即 const 类型&+参数名
-    特殊情况如：在输入参数为函数指针时可用 const 类型*+参数名
-    特殊情况如：传入的值本身需要随函数调用而变化的，用值的指针作为输入形参，用 const 类型*+参数名
-  输出参数，即 类型*+参数名
-每行代码不超过80个字符，超过则进行分行，且形参对齐
-return 不加"()"，除非含有复杂表达式，如：return(sqrt(pow(x1-x2,2)+pow(y1-y)
+函数名 小驼峰 动词/形容词+名词+类型属性
+函数参数 输入在前(常数类型) 输出在后(指针类型/引用类型)
+    输入参数为普通参数时，常引用类型
+	输入参数为函数指针或需要递归变化时，常指针类型
+    输出参数为普通参数时，指针类型/引用类型
 
-例子：
-void setFontStyle(const double& num,const double& text,const string& data_type,
-                 string* outputA,double* outputB)
+// 每行代码不超过80个字符，超过则进行分行，且形参对齐
+void setFontStyle(const double& num,const double& text,const string& data_type, 
+				  string* outputA,double* outputB)
 {
-  .....
-  .....
+  if(num == 1)
+  {
+	return 0; //return 不加"()"，含复杂表达式除外
+  }
+  else
+  {
+	return((sqrt(pow(x1-x2,2)+pow(y1-y))));
+  }
+}
+
+类命名规范
+类名 大驼峰 名词+类型属性（可选）
+  公有
+	构造函数 形参为非引用类型(可以为引用，但不提倡)
+	类函数成员 小驼峰 动词/形容词+名词+类型属性
+	类数据成员 小驼峰 _+名词+类型属性
+  私有
+    类函数成员 小驼峰 动词/形容词+名词+类型属性
+    类数据成员 小驼峰 名词+类型属性+_
+
+类函数内使用自身成员：
+   函数成员 this->函数名
+   公有数据成员 _+变量名
+   私有数据成员 变量名+_
+
+class MyCodeStyleText //类名 大驼峰 名词+类型属性'Text'
+{
+  public:
+	MyCodeStyle(double paramName){} //构造函数 形参为非引用类型
+    void setFormat(const string& typeName);
+    bool setGlobarOption(); 
+    void MyCodeStyle::getFontColorsText(const double& colorVal,const double& fontSize) //公有类函数成员 小驼峰 动词+名词+类型属性'Text'
+
+	unsigned char rgbColors; //公有数据成员 小驼峰 名词+类型属性
+	double fontWidth;
+
+  private:
+    bool resetOption();      //私有函数成员 小驼峰 动词+名词+类型属性
+	unsigned char fontSize_; //私有数据成员 小驼峰 名词+类型属性+_
+}
+void MyCodeStyle::setFormat(const string& typeName)
+{
+	if(typeName == "reset")
+	{
+		bool result = this->resetOptinon(); //类函数内使用私有函数成员
+		return result;
+	}
+	else
+	{
+		return this->setGlobarOption(); //类函数内使用公有函数成员
+		
+	}
+}
+void MyCodeStyle::getFontColorsText(const double& colorVal,const double& fontSize) 
+{
+    _rgbColors = colorVal; //类函数内使用公有数据成员 this->变量名
+	std::cout << " RGB Color is "<< _rgbColors << std::endl; 
+	fontSize_ = fontSize; //类函数内使用私有数据成员 变量名+_
+	std::cout << " Font Size is "<< fontSize_ << std::endl; 
 }
 
 
+书写规范
 
-操作符 运算符 = + - * / < > <= >= == && ! ++ --
-"="
-赋值操作符要求前后均留空格
-"+" "-" "*" "/" "<" ">" "<=" ">=" "==" "&&"
-上述其它二元操作符也前后留有空格, 但对于复杂的表达式的子式不加空格(作为子式内部不留空格),对总式前后留有空格
-圆括号内部没有紧邻空格
-"!" "++" "--"
-在参数和一元操作符之间不加空格
-例子：
+小驼峰式：(lower camel case)
+	第一个单词以小写字母开始;第二个单词的首字母大写
+大驼峰式：(upper camel case)
+	每个单词的第一个字母都大写;
+
+行与行之间的注释对齐，美观为主
+
+#include 排序要求
+1. 当前源文件对应的头文件
+2. 本项目内其他头文件
+3. C系统头文件
+4. C++系统头文件
+5. 第三方库的头文件
+PS：include头文件时优先所使用"",后使用<>
+    include与<>之间留有一个空格，如：#include <cmath>
+    每一项作为一个大类，空一行隔开
+
+每行代码不超过80个字符，超过则进行分行，且形参对齐
+
+return 不加"()"，含复杂表达式除外，如：return(sqrt(pow(x1-x2,2)+pow(y1-y)))
+
+符号运算 赋值运算符 关系运算符
+1.要求前后均留空格
+2.含复杂的表达式的子式除外，但总式前后要求留有空格
+3.圆括号内部没有紧邻空格
+4.一元操作符之间不加空格
+
 v = w * x;
 v = w*x + y/z;
-v = w * (x+z);
+v = (x+z) + a;
 x = -5;
 ++x;
 if (x && !y)
-...
-
+{
+  return 0;
+}
 
 条件语句 if...else
 不管代码数量，执行语句全部在"{}"进行
@@ -196,41 +269,8 @@ if (x && !y)
 
 开关语句 switch...case...default
 代码数量较少时，执行语句不需要放进"{}"
-代码数量较多时，执行语句全部在"{}"进行，并且
-全部统一使用
+代码数量较多时，执行语句全部在"{}"进行，并且全部统一使用
 
-
-类命名规范
-类名 大驼峰写法 名词+类型属性
-构造函数 形参为非引用类型(可以为引用，但不提倡)
-   构造函数的形参为非引用原因：当参数参与内部构造时，要保证生存期长于该类，否则会引起不必要的错误
-类函数
-   公有 小驼峰写法 动词/形容词+名词+类型属性
-   私有 小驼峰写法 动词/形容词+名词+类型属性
-类数据
-   公有 全部小写 名词+类型属性
-   私有 全部小写 名词+类型属性+_
-类对象
-   公有 小驼峰写法 名词+类型属性
-   私有 小驼峰写法 名词+类型属性+_
-
-类函数内使用自身成员：
-   公有函数成员 this->+函数名
-   公有数据成员 this->+变量名
-   公有对象成员 this->+对象名
-   私有函数成员 this->+函数名
-   私有数据成员 变量名+_
-   私有对象成员 this->对象名+_
-
-例子：
-class MyCodeStyleText{...} //名词+类型属性
-class MyCodeStyle{...}
-MyCodeStyle::MyCodeStyle(double a){...} //构造函数的形参为非引用类型型
-void MyCodeStyle::getFontColorsText(const double& num){...} //动词+名词+类型属性
-void MyCodeStyle::getFontColors(const double& num){...}
-
-
-类定义书写规范
 class 类名：<继承方式>:<基类名>
 {
  public:
@@ -261,209 +301,7 @@ class 类名：<继承方式>:<基类名>
 }
 初始化列表在c++用处：执行基类的构造以及内嵌对象的初始化
 
-例子：
-class MyCodeStyle:public Rectangle,public Controller
-{
-    public:
-      MyCodeStyle()；//构造函数，不带参数，类外定义
-      MyCodeStyle(int b); //构造函数，带参数，非引用类型，类外定义
-      ~MyCodeStyle(){...} //析构函数，类内定义
-      void getTextContent(const string& content); //公有函数成员,在类外定义
-      void countNumString(const double& num){...} //公有函数成员,在类内定义
-      double fontsize; //公有数据成员
-      Controller ctrllerA; //公有对象成员
-    private:
-      double stringnum_val_; //私有数据成员
-      Controller ctrllerB_; //私有对象成员
-}
-
-MyCodeStyle::MyCodeStyle():Rectangle(12),Controller("try"),ctrller("another")
-{
-  ......
-}
-
-MyCodeStyle::MyCodeStyle(int b):Rectangle(12),Controller("try"),ctrller("another")
-{
-  ......
-}
-
-void MyCodeStyle::getTextContent(const string& content) //公有函数成员
-{
-  this->countNumString(10); //类内使用公有函数成员
-  this->fontsize = num; //类内使用公有数据成员
-  this->ctrllerA(1); //类内使用公有对象成员
-  stringnum_val_ = num; //类内使用私有数据成员
-  this->ctrllerB_(1); //类内使用私有对象成员
-}
-
 组合与继承
 另一个类是当前类的一个属性时，即：当关系满足"有一个"的时候，使用组合
 另一个类是当前类的一种关系时，即：当关系满足"是一个"的时候，使用继承
     "教授是老师，教授有生日 前者是继承，后者是属性"
-
-
-命名空间命名规范
-命名空间 上级：项目名/团队名；下级：工程名
-空间别名 在对应命名空间的.h文件底部添加
-结尾附上命名空间的注释
-禁止使用 using namespace xxx;
-可以使用 using 命名空间::标识符(标识符是指：类名，函数名，参数名，[次级命名空间不算])
-例子：
-namespace CppCodeStyle
-{
-......
-} //namespace CppCodeStyle
-namespace cppcodsty = CppCodeStyle; //空间别名
-
-using namespace cppcodsty; //禁止使用
-using cppcodesty::标识符； //可以使用
-
-
-风格实例
-/*
- *  This is my c++ code style
- *  it will continually updated until finished
- *  <author> lixianqiang </author>
- *  <email> lxq243808918@gmail.com </email>
- */
-
-#include "myCodeStyle.h"
-#include "common.h"
-
-#include <Format.h>
-#include <Font.h>
-
-#include <math.h>
-#include <iostream>
-
-#include <boost>
-#include <ros/ros.h>
-
-#define PI 3.1415926
-
-/*
- * 变量命名规范
- * 包括普通变量，常量，枚举，结构体
- * 行注释：行尾空一格进行注释,行与行之间的注释对齐，美观为主
- */
-double status_val; //普通变量，全部小写，下划线相间
-const c_value_type; //常量，前缀c_+变量名
-enum e_Colors   //枚举型，前缀e_+变量名
-{
-  Colors_red;   //枚举值，前缀(枚举变量名)+数值名
-  Colors_blue;
-  Colors_green;
-}
-struct TextFormat //结构体 大驼峰写法
-{
-  paragraph_format; //结构体成员，全部小写，下划线相间
-  paragraph_size;
-  paragraph_font;
-}
-
-
-//函数命名规范
-//函数名 小驼峰写法 动词/形容词+名词+类型属性
-//函数参数 输入在前 输出在后
-//输入参数 const&+参数名
-//每行代码不超过80个字符
-void setFooText(const double& a,const double& b,double& out) //","后面不空格
-{
-  for(double i = 0;i < a;i++) //循环语句";"后面空一个空格
-  {
-    if(i < b) //条件语句就算只有一行代码也要{}
-    {
-      out = b;
-    }
-    else
-    {
-      out = b+i;
-    }
-  }
-}
-
-void setFontStyle(const double& num,const double&);
-
-// TODO注释使用
-// TODO(123456@abc.com)@这是假设该函数时临时方案
-// TODO(mko_li)@需要继续完善，或提出更好的解决方法
-// TODO@发现还有一点bug，但先留着以后在修改
-void bugFun(double i)
-{
-  static double counter = 0;
-  counter += i;
-}
-
-namespace Foo
-{
-namespace Bar
-{
-.....
-}
-}  //namespace Foo
-namespace FB = Foo::Bar
-
-
-// 类名 大驼峰写法 名词+类型属性
-// 类函数 小驼峰写法 动词/形容词+名词+类型属性
-// 类数据成员 变量名+_
-class CodeStyle
-{
-  public:
-    CodeStyle(double font, double rgb);
-    void getTextContent(string& text)
-    {
-      string out_content = text;
-      return out_content;
-    }
-
-
-  private:
-    double size_;
-    double color_;
-};
-
-CodeStyle::CodeStyle(double font, double rgb):size_(font),color_(rgb)
-{
-  .....
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-my_style
-	mycodestyle.h
-	mycodestyle.cpp
-
-mycodestyle.h
-#include <math>     // c头文件
-
-#include <iostream> // c++ 头文件
-#include <vector>   // c++头文件
-
-#include <boost>      // 其他库的头文件
-#include <ros/ros.h>  // 其他库的头文件
-#include <geometry_msgs/Pose.h> // 其他库的头文件
-
-class mycodestyle
-{
-	publish
-}
-
