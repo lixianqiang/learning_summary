@@ -23,7 +23,8 @@ find_package(catkin REQUIRED COMPONENTS roscpp someones_pkg)
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+// 如果当前的ROS包要提供一些Python模块给其他人用，创建一个setup.py文件并调用该语句
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -106,20 +107,21 @@ generate_dynamic_reconfigure_options(
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-// 用于生成cmake配置文件，B包指定第三方的其他包，A包指当前CmakeList下的catkin包
+// 主要作用:生成cmake配置文件,将当前包的东西(如:自定义头文件,动态库等)提供给第三方包去使用
+// 通俗来讲,就是将下面变量[如:INCLUDE_DIRS]所对应参数[如:pkg_include]放进一些通用变量[如:${catkin_INCLUDE_DIRS}]),让第三包通过使用这些变量找到,链接,并使用
+// 特殊说明:A包(当前包),B包(第三方包)
 catkin_package(
   INCLUDE_DIRS pkg_include
   LIBRARIES pkg_lib
   CATKIN_DEPENDS other_catkin_pkg
-  DEPENDS system_lib  
+  DEPENDS system_lib
 )
-INCLUDE_DIRS pkg_include
-  /* 当B包使用了A包的某些头文件时，并且B包使用了find_package将A包纳入它的依赖时，
-  /* B包想通过变量${catkin_INCLUDE_DIRS}成功找到A包的头文件时，A包的相关头文件路径位置需要在这里列出
-  /* 为第三方使用该包中的头文件，提供头文件路径
+INCLUDE_DIRS pkg_include   ## 当B包使用了A包自定义某些头文件时(但不包括生成消息/服务的头文件)，并且B包使用了'find_package()'将A包纳入它的依赖
+  /* B包想通过变量${catkin_INCLUDE_DIRS}成功找到A包自定义的头文件时，A包的相关头文件路径位置需要在这里列出
+  /* 第三方要使用该包中的头文件，需要提供该头文件路径
 LIBRARIES pkg_lib
-  /* 下面的同理，当B包想要通过变量${catkin_LIBRARIES}成功找A包下生成的动（静）态库时，
-  /* A包的相关库在这里列出，为第三方使用该包中的库，提供库文件
+  /* 同理，当B包想要通过变量${catkin_LIBRARIES}成功找A包所生成的动（静）态库时，
+  /* A包的相关库'pkg_lib'应在这里列出，以便第三方可以通过${catkin_LIBRARIES}找到该包中的库'pkg_lib'
   /* 相关库指的是下面add_library生成的库
 CATKIN_DEPENDS
   /* 当前包需要依赖的包，一般与find_package后面列出的包一致 
@@ -160,8 +162,9 @@ add_library(CmakeList_example
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-// 明确该包库文件生成所需要的依赖，
-// 加上的话，编译时会自动按照依赖顺序进行编译，不加的话编译时需要手动按依赖顺序一个个编译
+// 明确该包的库文件生成所需要的依赖
+// ${catkin_EXPORTED_TARGETS}的意义: 通俗来讲,如果当前包(A包)的动(静)态库需要依赖由第三方包(B包)所生成的消息/服务/操作时,就要加入该变量
+// ${${PROJECT_NAME}_EXPORTED_TARGETS}的意义: 通俗来讲,如果当前包(A包)的动(静)态库需要依赖于自己所定义的消息/服务/操作时,就要加入该变量
 add_dependencies(CmakeList_example ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
@@ -179,7 +182,7 @@ add_executable(CmakeList_example_node src/CmakeList_example.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 // 明确该包执行文件生成所需要的依赖，
-// 加上的话，编译时会自动按照依赖顺序进行编译，不加的话编译时需要按依赖顺序一个一个编译
+// 同理.不过是针对执行文件
 add_dependencies(CmakeList_example_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
@@ -198,9 +201,8 @@ target_link_libraries(CmakeList_example_node
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 // 将python脚本或其他运行脚本复制到变量${CATKIN_PACKAGE_BIN_DESTINATION}
-install(PROGRAMS
-  scripts/my_python_script
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+install(PROGRAMS  scripts/my_python_script
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 ## Mark executables and/or libraries for installation
