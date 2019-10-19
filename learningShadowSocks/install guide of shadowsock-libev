@@ -20,7 +20,9 @@
         (3)sudo service shadowsocks-libev start       
         (4)sudo systemctl start shadowsocks-libev
 2.启动客户端
-        sudo ss-local -c /etc/shadowsocks-libev/config.json start
+        nohup sudo ss-local -c /etc/shadowsocks-libev/config.json start &
+        sudo vim /lib/systemd/system/shadowsocks-libev-local@.service	替换其中ExecStart的配置路径:  ExecStart=/usr/bin/ss-local -c /etc/shadowsocks-libev/config.json
+ 	sudo systemctl enable shadowsocks-libev-local@.       
 
 方法2(源码编译,未验证)
 以下步骤均适用于服务端与客户端
