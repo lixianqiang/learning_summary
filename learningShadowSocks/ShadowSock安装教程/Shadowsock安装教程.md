@@ -33,12 +33,13 @@ apt-get install shadowsocks
 ```
 nano /etc/shadowsocks/config.json
 ```
-<div align=center><img src="../material/pic/配置shadowsocks.png" alt="配置shadowsocks.png" title="配置shadowsocks" width="100%" height="100%"/></div>
-按 <kbd>Ctrl</kbd>+<kbd>o</kbd> 保存修改;   
-按 <kbd>Enter</kbd> 　确定修改;   
-按 <kbd>Ctrl</kbd>+<kbd>x</kbd> 退出编辑.   
+<div align=center><img src="../material/pic/配置shadowsocks.png" alt="配置shadowsocks.png" title="配置shadowsocks" width="100%" height="100%"/></div> 
+
+按<kbd>Ctrl</kbd>+<kbd>o</kbd> 保存修改;   
+按<kbd>Enter</kbd>  确定修改;   
+按<kbd>Ctrl</kbd>+<kbd>x</kbd> 退出编辑.   
 个人配置参考
-    ```
+```
     {
         "server":"x.x.x.x",
         "server_port":8388,
@@ -51,13 +52,13 @@ nano /etc/shadowsocks/config.json
         "workers": 1,
         "prefer_ipv6": false
     }
-    ```
-
+```    
 ### 启动ShadowSocks服务 ###
 ```
 ssserver -c /etc/shadowsocks/config.json start > /dev/null 2>&1
 ```
 <div align=center><img src="../material/pic/启动ShadowSocks服务端.png" alt="启动ShadowSocks服务端.png" title="启动ShadowSocks服务端" width="100%" height="100%"/></div>
+
 ************************************************************************************************************************************************
 ### 客户端 ###
 #### 配置Window客户端 ####
@@ -70,7 +71,7 @@ ssserver -c /etc/shadowsocks/config.json start > /dev/null 2>&1
 修改配置文件
 具体配置方法,请参考**配置ShadowSocks服务**  
 个人配置参考
-    ```
+```
     {
         "server":"x.x.x.x",
         "server_port":8388,
@@ -83,12 +84,13 @@ ssserver -c /etc/shadowsocks/config.json start > /dev/null 2>&1
         "workers": 1,
         "prefer_ipv6": false
     }
-    ```
+```
 #### 启动ShadowSocks客户端 #### 
 ```
 sslocal -c /etc/shadowsocks/config.json start > /dev/null 2>&1
 ```
 <div align=center><img src="../material/pic/启动ShadowSocks客户端.png" alt="启动ShadowSocks客户端.png" title="启动ShadowSocks客户端" width="100%" height="100%"/></div>
+
 ************************************************************************************************************************************************
 ### 自启动配置 ###
 > Ubuntu自启动方式有 sysVinit 和 Systemd 这两种, 自Ubuntu18.04起采用Systemd自启动, 请自行根据系统版本选择相应的启动配置  
@@ -107,8 +109,8 @@ Ubuntu 18.04
 ```
 nano /etc/systemd/system/shadowsocks.service
 ```
-编辑shadowsocks.service, 内容如下:
-    ```
+编辑shadowsocks.service, 内容如下:  
+```
     [Unit]
     Description=Shadowsocks Client Service
     After=network.target
@@ -118,7 +120,7 @@ nano /etc/systemd/system/shadowsocks.service
     ExecStart=/usr/bin/ssserver -c /etc/Shadowsocks/config.json  #客户端换成: /usr/bin/sslocal -c /etc/Shadowsocks/config.json
     [Install]
     WantedBy=multi-user.target
-    ```
+```
 自启动设置, 服务端 与 客户端 均执行以下指令
 ```
 systemctl enable /etc/systemd/system/shadowsocks.service
