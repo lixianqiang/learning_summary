@@ -37,8 +37,9 @@ nano /etc/shadowsocks/config.json
 
 按<kbd>Ctrl</kbd>+<kbd>o</kbd> 保存修改;   
 按<kbd>Enter</kbd>  确定修改;   
-按<kbd>Ctrl</kbd>+<kbd>x</kbd> 退出编辑.   
-个人配置参考
+按<kbd>Ctrl</kbd>+<kbd>x</kbd> 退出编辑. 
+
+**个人配置参考**
 ```
     {
         "server":"x.x.x.x",
@@ -69,8 +70,9 @@ ssserver -c /etc/shadowsocks/config.json start > /dev/null 2>&1
 > note: 如果使用pip方式进行安装需要自己编写config.json
 
 修改配置文件
-具体配置方法,请参考**配置ShadowSocks服务**  
-个人配置参考
+具体配置方法,请参考**配置ShadowSocks服务**
+
+**个人配置参考**
 ```
     {
         "server":"x.x.x.x",
