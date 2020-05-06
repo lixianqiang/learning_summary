@@ -35,8 +35,7 @@ nano /etc/shadowsocks-libev/config-obfs.json
 按 <kbd>Ctrl</kbd>+<kbd>o</kbd> 保存修改;  
 按 <kbd>Enter</kbd> 　确定修改;  
 按 <kbd>Ctrl</kbd>+<kbd>x</kbd> 退出编辑.  
-
-个人配置参考
+**个人配置参考**
 ```
     {
         "server":"x.x.x.x",
@@ -66,7 +65,7 @@ ss-server -c /etc/shadowsocks-libev/config-obfs.json start > /dev/null 2>&1
 #### 配置Ubuntu客户端 ####
 修改配置文件
 具体配置方法,请参考**配置ShadowSocks-libev服务**  
-个人配置参考
+**个人配置参考**
 ```
     {
         "server":"x.x.x.x",
