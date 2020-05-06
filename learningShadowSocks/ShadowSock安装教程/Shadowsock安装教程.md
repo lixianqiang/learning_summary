@@ -34,8 +34,8 @@ apt-get install shadowsocks
 nano /etc/shadowsocks/config.json
 ```
 <div align=center><img src="../material/pic/配置shadowsocks.png" alt="配置shadowsocks.png" title="配置shadowsocks" width="100%" height="100%"/></div>
-按 <kbd>Ctrl</kbd>+<kbd>o</kbd> 保存修改;  
-按 <kbd>Enter</kbd> 　确定修改;  
+按 <kbd>Ctrl</kbd>+<kbd>o</kbd> 保存修改;   
+按 <kbd>Enter</kbd> 　确定修改;   
 按 <kbd>Ctrl</kbd>+<kbd>x</kbd> 退出编辑.   
 个人配置参考
     ```
