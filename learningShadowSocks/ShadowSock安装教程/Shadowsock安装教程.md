@@ -1,9 +1,9 @@
 ## ShadowSock安装教程 ##
->   Shadowsocks 俗称 小飞机
->   python语言编写  
+>   Shadowsocks 俗称 小飞机  
+>   使用python语言编写  
 >   VPS作为服务端,本地终端(手机/电脑/pad)作为客户端  
 >   原则上, Linux端, 其服务端和客户端是安装步骤相同,只是启动指令略有不同
->   选择加密协议上,建议选择较新的协议,不推荐使用默认协议; 推荐使用chacha20-ietf-poly1305 或者 xchacha20-ietf-poly1305  
+>   加密协议的选择上,建议选择较新的协议,不推荐使用默认协议; 推荐使用chacha20-ietf-poly1305 或者 xchacha20-ietf-poly1305  
 <font size="3">
 本教程包括以下几个部分:
 
