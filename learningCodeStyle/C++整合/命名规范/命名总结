@@ -1,0 +1,118 @@
+文件命名
+命名方案1
+	名字全部小写，单词之间使用 ‘_’ 下划线连接
+C++文件要以 .cc 为结尾，头文件以 .h 为结尾
+
+
+#define 保护
+命名方案1
+	<PROJECT>_<PATH>_<FILE>_H_
+命名方案2
+	<PROJECT>_<PATH>_<FILE>_H
+例如, 项目 foo 中的头文件 foo/src/bar/baz.h 可按如下方式保护:
+	#ifndef FOO_BAR_BAZ_H_
+	#define FOO_BAR_BAZ_H_
+	...
+	#endif // FOO_BAR_BAZ_H_
+
+
+命名空间
+命名方案1
+	名字全部小写，单词之间使用 ‘_’ 下划线连接
+
+
+变量 （具有变化性质）
+命名方案1
+	小驼峰写法
+命名方案2
+	名字全部小写，单词之间使用 ‘_’ 下划线连接
+单词缩写可以通过去掉元音字母（a,e,i,o,u）的方式实现
+常用变量缩写
+argument arg 	buffer buff 	clock clk
+command cmd 	compare cmp 	configuration cfg
+device dev 		error err 		flag flg
+hexadecimal hex increment inc 	initialize init 
+maximum max     message msg 	minimum min
+parameter para  previous prev 	register reg
+semaphore sem   statistic stat 	synchronize sync
+temp tmp
+
+
+常量 （具有不变性质）
+命名方案1
+	名字全部大写，单词之间使用 ‘_’ 下划线连接
+命名方案2
+	前缀 ‘k_’ + 变量名
+
+
+宏 （具有不变性质）
+命名方案1
+	名字全部大写，单词之间使用 ‘_’ 下划线连接
+
+
+全局变量 （具有全局性质）
+命名方案1
+	前缀 ‘g_’ + 变量名
+
+
+静态变量 （具有静态生存周期）
+命名方案1
+	前缀 ‘s_’ + 变量名
+
+
+枚举
+命名方案1
+	大驼峰写法
+建议：命名以 ‘E’ 开头，其他部分遵从一般变量命名规范
+
+枚举型成员
+命名方案1
+	名字全部大写字母，单词之间使用 ‘_’ 下划线连接
+命名方案2
+	名字首字母大写（仅适用一个单词的情况）
+
+
+结构体
+命名方案1
+	大驼峰写法
+建议：命名以 ‘S’ 开头，其他部分遵从一般变量命名规范
+
+
+函数命名
+命名方案1
+	大驼峰写法
+函数命名规则
+	动词
+	动词+名词
+常用反义词组
+	add/remove		begin/end		create/destory
+	insert/delete	first/last		get/release
+	incerement/decrement	put/get
+	add/delete		lock/unlock		open/close
+	min/max			old/new			start/stop
+	next/previous	source/target	show/hide
+	send/receive	source/destination
+	cut/paste		up/down
+
+
+类
+命名方案1
+	大驼峰写法
+建议：命名以 ‘C’ 开头，其他部分遵从一般变量命名规范
+
+类的数据成员
+命名方案1
+	私有（保护）成员 
+		前缀 ‘m_’ + 变量名
+	公有成员
+		前缀 ‘m_’ + 变量名
+命名方案2
+	私有（保护）成员 
+		变量名 + 后缀 ‘_’
+	公有成员
+		变量名
+命名方案3
+	私有（保护）成员 
+		前缀 ‘m_’ + 变量名 + 后缀 ‘_’
+	公有成员
+		前缀 ‘m_’ + 变量名

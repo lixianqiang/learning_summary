@@ -1,0 +1,204 @@
+注释
+一个文档字符串应该这样组织: 
+首先是一行以句号, 问号或惊叹号结尾的概述(或者该文档字符串单纯只有一行). 
+接着是一个空行. 接着是文档字符串剩下的部分, 它应该与文档字符串的第一行的第一个引号对齐. 
+下面有更多文档字符串的格式化规范.
+
+def fetch_bigtable_rows(big_table, keys, other_silly_variable=None):
+    """Fetches rows from a Bigtable.
+
+    Retrieves rows pertaining to the given keys from the Table instance
+    represented by big_table.  Silly things may happen if
+    other_silly_variable is not None.
+
+    ......
+    ......
+
+    """
+
+
+函数和方法
+文档字符串应该包含函数做什么, 以及输入和输出的详细描述
+对于复杂的代码, 在代码旁边加注释会比使用文档字符串更有意义.
+每节应该以一个标题行开始. 标题行以冒号结尾. 除标题行外, 节的其他内容应被缩进2个空格.
+
+Args:
+列出每个参数的名字, 并在名字后使用一个冒号和一个空格, 分隔对该参数的描述.
+如果描述太长超过了单行80字符,使用2或者4个空格的悬挂缩进(与文件其他部分保持一致). 
+描述应该包括所需的类型和含义. 
+如果一个函数接受*foo(可变长度参数列表)或者**bar (任意关键字参数), 应该详细列出*foo和**bar.
+
+Returns: (或者 Yields: 用于生成器)
+描述返回值的类型和语义. 如果函数返回None, 这一部分可以省略.
+
+Raises:
+列出与接口有关的所有异常.
+
+def fetch_bigtable_rows(big_table, keys, other_silly_variable=None):
+    """从Bigtable获取行.
+
+    从由big_table表示的Table实例中检索与给定键有关的行。
+    如果other_silly_variable不为None，可能会发生愚蠢的事情。
+
+    Args:
+        big_table: 打开的Bigtable Table实例。
+        keys: 代表每个要获取的表行键的字符串序列。
+        other_silly_variable: 另一个可选变量，其名称比其他args长得多，并且不执行任何操作。
+
+    Returns:
+        字典将映射键映射到相应的表行数据。每行都表示为字符串元组。例如：
+        {'Serak': ('Rigel VII', 'Preparer'),
+         'Zim': ('Irk', 'Invader'),
+         'Lrrr': ('Omicron Persei 8', 'Emperor')}
+
+        如果字典中缺少keys参数中的键，则在表中找不到该行。
+
+    Raises:
+        IOError: 访问bigtable.Table对象时发生错误。
+    """
+    pass
+
+
+类
+在其定义下有一个用于描述该类的文档字符串. 
+如果你的类有公共属性(Attributes), 那么文档中应该有一个属性(Attributes)段. 
+并且应该遵守和函数参数相同的格式.
+
+class SampleClass(object):
+    """Summary of class here.
+
+    Longer class information....
+    Longer class information....
+
+    Attributes:
+        likes_spam: A boolean indicating if we like SPAM or not.
+        eggs: An integer count of the eggs we have laid.
+    """
+
+    def __init__(self, likes_spam=False):
+        """Inits SampleClass with blah."""
+        self.likes_spam = likes_spam
+        self.eggs = 0
+
+    def public_method(self):
+        """Performs operation blah."""
+
+
+块注释
+块注释的每一行都应该以#和一个空格开头
+块注释中的段落应该用只含有单个#的一行隔开。
+块注释通常由一段或几段完整的句子组成，每个句子都应该以句号结束。
+
+
+行注释
+尽量少用行内注释。
+行内注释是和代码语句写在一行内的注释。
+行内注释应该至少和代码语句之间有两个空格的间隔，并且以#和一个空格开始
+x = x + 1		# 边界补偿
+
+
+块注释和行注释
+对于复杂的操作, 应该在其操作开始前写上若干行注释.
+对于不是一目了然的代码, 应在其行尾添加注释.
+为了提高可读性, 注释应该至少离开代码2个空格.
+
+# We use a weighted dictionary search to find out where i is in
+# the array.  We extrapolate position based on the largest num
+# in the array and the array size and then do binary search to
+# get the exact number.
+
+if i & (i-1) == 0:		# True if i is 0 or a power of 2.
+
+
+TODO注释
+注释开头应包含”TODO”字符串, 括号内是你的名字, email地址或其它标识符. 然后是（可选的）冒号. 
+接着必须有一行注释, 解释要做什么. 
+写了TODO注释并不保证写的人会亲自解决问题. 当你写了一个TODO, 请注上你的名字.
+如果你的TODO是”将来做某事”的形式, 那么请确保你包含了一个指定的日期(“2009年11月解决”)
+或者一个特定的事件(“等到所有的客户都可以处理XML请求就移除这些代码”).
+
+# TODO(kl@gmail.com): Use a "*" here for string repetition.
+# TODO(Zeke) Change this to use relations.
+
+
+单行文档字符串
+对于单行文档字符串，关闭的引号应该和开始的引号在同一行。
+文档字符串的开始和结束不空行。
+描述函数或方法的作用时应该使用命令式短语(“Do this”， “Return that”)
+而不是作为一段描述。比如，不要写“Returns the pathname ...”。
+
+def function(a, b):
+  """Do X and return a list."""
+
+
+文档字符串
+脚本
+记录脚本的功能和命令行语法，环境变量和文件。
+使用方法信息可以是相当详细的(随便占个几屏)。
+
+
+模块
+通常应列出由模块导出的类，异常和函数(以及任何其他对象)，
+其中包含每个模块的一行摘要。
+
+
+软件包(即软件包的__init__.py模块的文档字符串)
+应该列出软件包导出的模块和子包。
+
+
+函数或方法
+应总结其行为
+记录其参数，返回值，副作用，引发的异常
+以及可以调用的限制。
+应该指出可选参数。
+应该记录关键字参数是否是接口的一部分。
+
+
+类
+应总结其行为
+列出公共方法和实例变量。
+如果该类旨在被子类化，并且有一个子类的附加接口，则该接口应该单独列出(在文档字符串中)。
+类构造函数应该在文档字符串中记录其__init__方法。私有方法应该由他们自己的文档字符串记录。
+如果一个类对另一个类进行子类化，并且其行为大部分从该类继承，则其文档字符串应该提及这一点，并总结出差异。 
+使用动词“override”表示子类方法替换超类方法，不调用超类方法; 使用动词“extend”来表示一个子类方法调用超类方法。
+
+
+处理文档字符串缩进
+def trim(docstring):
+    if not docstring:
+        return ''
+    # Convert tabs to spaces (following the normal Python rules)
+    # and split into a list of lines:
+    lines = docstring.expandtabs().splitlines()
+    # Determine minimum indentation (first line doesn't count):
+    indent = sys.maxint
+    for line in lines[1:]:
+        stripped = line.lstrip()
+        if stripped:
+            indent = min(indent, len(line) - len(stripped))
+    # Remove indentation (first line is special):
+    trimmed = [lines[0].strip()]
+    if indent < sys.maxint:
+        for line in lines[1:]:
+            trimmed.append(line[indent:].rstrip())
+    # Strip off trailing and leading blank lines:
+    while trimmed and not trimmed[-1]:
+        trimmed.pop()
+    while trimmed and not trimmed[0]:
+        trimmed.pop(0)
+    # Return a single string:
+    return '\n'.join(trimmed)
+
+
+注意事项
+当代码有改动时，一定要优先更改注释使其保持最新。
+如果注释很短，结束的句号可以被忽略。
+如果注释是一个短语或一个句子，其首字母应该大写，除非开头是一个以小写字母开头的标识符
+对于 """ 三引号表示的字符串，使用双引号字符来表示
+多行文档字符串以单行"""结尾，不能有其他字符
+如下图所示：
+"""Return a foobang
+
+Optional plotz says to frobnicate the bizbaz first.
+"""
+对于仅有一行的文档字符串，结尾处的"""应该也写在这一行。
