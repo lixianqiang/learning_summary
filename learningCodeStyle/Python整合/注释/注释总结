@@ -46,7 +46,7 @@ Raises:
 def fetch_bigtable_rows(big_table, keys, other_silly_variable=None):
     """从Bigtable获取行.
 
-    从由big_table表示的Table实例中检索与给定键有关的行。
+    从由big_table表示的Table实例中检索与给定键有关的行。      # 正文部分可选
     如果other_silly_variable不为None，可能会发生愚蠢的事情。
 
     Args:
