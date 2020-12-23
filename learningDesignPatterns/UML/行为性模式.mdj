@@ -10953,6 +10953,28 @@
 							"subViews": [
 								{
 									"_type": "EdgeLabelView",
+									"_id": "AAAAAAF2idcuHQkYPn8=",
+									"_parent": {
+										"$ref": "AAAAAAF03LJ5mROazpM="
+									},
+									"model": {
+										"$ref": "AAAAAAF03LJ5mBOW/c0="
+									},
+									"font": "Arial;13;0",
+									"left": 2561,
+									"top": 448,
+									"width": 32.16357421875,
+									"height": 13,
+									"alpha": 1.5707963267948966,
+									"distance": 15,
+									"hostEdge": {
+										"$ref": "AAAAAAF03LJ5mROazpM="
+									},
+									"edgePosition": 1,
+									"text": "+A2B"
+								},
+								{
+									"_type": "EdgeLabelView",
 									"_id": "AAAAAAF03LJ5mROcKjo=",
 									"_parent": {
 										"$ref": "AAAAAAF03LJ5mROazpM="
@@ -11159,6 +11181,9 @@
 							"lineStyle": 1,
 							"points": "2528:490;2639:446",
 							"showVisibility": true,
+							"nameLabel": {
+								"$ref": "AAAAAAF2idcuHQkYPn8="
+							},
 							"stereotypeLabel": {
 								"$ref": "AAAAAAF03LJ5mROcKjo="
 							},
@@ -17678,7 +17703,7 @@
 											"top": 1037,
 											"width": 230.12158203125,
 											"height": 13,
-											"text": "+SaveMemento(Memento* memo): void",
+											"text": "+SetMemento(Memento* memo): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -17695,7 +17720,7 @@
 											"top": 1052,
 											"width": 230.12158203125,
 											"height": 13,
-											"text": "+ReadMemento(): Memento",
+											"text": "+GetMemento(): Memento",
 											"horizontalAlignment": 0
 										}
 									],
@@ -31796,7 +31821,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF03YO1mV+177k="
 							},
-							"name": "SaveMemento",
+							"name": "SetMemento",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -31804,8 +31829,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF03YPNu2HXReU="
 									},
-									"name": "Memento* memo",
-									"type": ""
+									"name": "Memento* memo"
 								},
 								{
 									"_type": "UMLParameter",
@@ -31824,7 +31848,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF03YO1mV+177k="
 							},
-							"name": "ReadMemento",
+							"name": "GetMemento",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
