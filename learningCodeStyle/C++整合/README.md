@@ -327,7 +327,8 @@ TODO注释
 函数命名
 命名方案
 		大驼峰写法	
-		建议：以动词/动词+名词的方式进行命名
+		仅一个单词时，名字采用小写
+		建议：以动词 / 动词+名词的方式进行命名
 常用反义词组
 		add/remove		begin/end		create/destory
 		insert/delete	first/last		get/release
