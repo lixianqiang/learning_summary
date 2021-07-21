@@ -370,6 +370,8 @@ TODO注释
 
 	当变量之间需要体现属性差异时，属性 + '_' + 变量
 
+	paramA 			last_paramA		next_paramA
+
 	argVal 			last_argVal		next_argVal
 
 			
