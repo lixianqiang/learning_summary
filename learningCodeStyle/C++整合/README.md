@@ -98,7 +98,7 @@ Histiory:		// 修改历史记录表
 Copyright(C) Huawei Technology Co., Ltd. 1998-2011. All right reserved
 License(可选):		// 许可证版本
 FileName:		// 文件名 
-Author:             Version:           Date:
+Author:             Date:           Version:
 Description:		// (详细/简要)描述本文件的内容、功能、内部各部分之间的关系
             					// 以及本文件与其他文件的关系
 Version:		// 版本信息，包括但不限于以下内容：
@@ -111,8 +111,8 @@ Function List(可选):		// 主要函数及其功能
 		1, .......
 Histiory:		// 修改历史记录表，内容包括：修改日期，修改者
             			// 以及修改内容简述
-   <author>				<time>				<version>				<desc>
-   David       				2020/10/12     	1.0.0         				....
+   <author>				<date>				<version>				<desc>
+   David       			2020/10/12     		1.0.0         			....
 **************************************************************************/
 
 
@@ -530,7 +530,8 @@ TODO注释
 设计函数时，作为防御性编程风格，有必要对传入参数作安全检查
 调用函数时，调用者有义务保证参数符合要求
 
-
+禁止使用 using namespace nsA; 会污染其他头文件
+可以使用 namespace nsA{ .... } 或 using nsA::funA; 
 
 
 ********************************************************************************
