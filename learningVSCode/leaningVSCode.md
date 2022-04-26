@@ -18,3 +18,7 @@
 
 ## 注意事项
 有时候某个按键不生效（比如：F5），多数是该快捷键对应的插件出现问题问题（对应：C++插件出问题，），重新加载一下，并启用
+记住，插件本质上只是一些配置文件，还需要我们安装相应的软件程序，供它查找/调用。  
+例子1："Unable to find GDB in default search path and gdb." 可能是根本没有装上gdb,按照它的默认位置找不到gdb；  
+例子2："Cpplint: Could not find cpplint executable" ，同样根本原因是没有装cpplint；  
+例子3："The 'clang-format' command is not available. Please check your clang-format.executable user setting and ensure it is installed."，没有安装clang-format； 
