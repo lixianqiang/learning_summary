@@ -22,3 +22,8 @@
 例子1："Unable to find GDB in default search path and gdb." 可能是根本没有装上gdb,按照它的默认位置找不到gdb；  
 例子2："Cpplint: Could not find cpplint executable" ，同样根本原因是没有装cpplint；  
 例子3："The 'clang-format' command is not available. Please check your clang-format.executable user setting and ensure it is installed."，没有安装clang-format； 
+
+如果debug调试模式下，不能正常打断点调试：  
+情况1：CMakeList.txt没有相应的调试选项。比如：缺少 set(CMAKE_BUILD_TYPE Debug) 的配置项
+情况2：相应的源文件没有执行权限。比如：yy.cpp 的权限为-rx-rx-rx-，没有执行权限
+情况3：调试时的用户不正确。比如：yy.cpp 由 xxx 用户创建，但是在root用户下进行调试，root用户没有该文件的执行权限
