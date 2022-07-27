@@ -16,7 +16,8 @@
     * 关键是:如何设计可以同时动态承载不同类型的状态信息类.
     *       1, 基本思路是使用模板方法, boost::any, std::variant
     *       2, 使用可变长度数组直接作为函数参数, std::vector  类似与主函数main(int argc, char* argv), 
-    *               对应为: Memento::Memento(std::vector& args)，然后根据自己的情况传入需要保存的状态   
+    *               对应为: Memento::Memento(std::vector& args)，然后根据自己的情况传入需要保存的状态 
+    *  (推荐)3, 使用dynamic_cast<type>将抽象备忘录类转变为具体的具体备忘录类 
     * 参考资料：https://zhuanlan.zhihu.com/p/57352961
     *                      https://www.cnblogs.com/qicosmos/p/3420095.html
     ***********************************************************************************************************/
