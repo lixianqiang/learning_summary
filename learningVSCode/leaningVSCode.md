@@ -37,7 +37,10 @@
 2，编译时用户权限不匹配
 
 ## clangd与clang-format格式化冲突不起效
-右键"格式化文档"，它会让你选择一种默认的格式化配置。对应的则是json文件中的
+右键"格式化文档"，它会让你选择一种默认的格式化配置。
+![clangd_and_clang-format](./clangd_and_clang-format(1).jpg "clangd_and_clang-format.json") 
+![clangd_and_clang-format](./clangd_and_clang-format(2).jpg "clangd_and_clang-format.json")  
+对应的则是setting.json文件中的
 ```json
 {
     "[cpp]": {
