@@ -54,7 +54,10 @@ nano /etc/shadowsocks-libev/config-obfs.json
 
 ### 启动ShadowSocks-libev服务 ###
 ```
-ss-server -c /etc/shadowsocks-libev/config-obfs.json start > /dev/null 2>&1
+# 一般方法
+nohup ss-server -c /etc/shadowsocks-libev/config.json start > /dev/null 2>&1 &
+# 通过docker的方式
+docker run -e PASSWORD=自定义密码 -e METHOD=加密协议 -p 本机监听端口:docker监听端口 -p 本级监听端口:docker监听端口/udp -d --restart always shadowsocks/shadowsocks-libev
 ```
 <div align=center><img src="../material/pic/启动ShadowSocks-libev服务端.png" alt="启动ShadowSocks-libev服务端.png" title="启动ShadowSocks-libev服务端" width="100%" height="100%"/></div>
 
@@ -84,6 +87,7 @@ ss-server -c /etc/shadowsocks-libev/config-obfs.json start > /dev/null 2>&1
 ```
 #### 启动ShadowSocks-libev客户端 ####
 ```
+# 一般方法
 nohup ss-local -c /etc/shadowsocks-libev/config-obfs.json start > /dev/null 2>&1 & 
 ```
 <div align=center><img src="../material/pic/启动ShadowSocks-libev客户端.png" alt="启动ShadowSocks-libev客户端.png" title="启动ShadowSocks-libev客户端" width="100%" height="100%"/></div>
