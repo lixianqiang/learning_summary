@@ -84,7 +84,7 @@ ss-server -c /etc/shadowsocks-libev/config-obfs.json start > /dev/null 2>&1
 ```
 #### 启动ShadowSocks-libev客户端 ####
 ```
-ss-local -c /etc/shadowsocks-libev/config-obfs.json start > /dev/null 2>&1
+nohup ss-local -c /etc/shadowsocks-libev/config-obfs.json start > /dev/null 2>&1 & 
 ```
 <div align=center><img src="../material/pic/启动ShadowSocks-libev客户端.png" alt="启动ShadowSocks-libev客户端.png" title="启动ShadowSocks-libev客户端" width="100%" height="100%"/></div>
 
