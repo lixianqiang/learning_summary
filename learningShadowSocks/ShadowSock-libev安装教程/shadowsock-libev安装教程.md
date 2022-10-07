@@ -92,6 +92,10 @@ nohup ss-local -c /etc/shadowsocks-libev/config-obfs.json start > /dev/null 2>&1
 ```
 <div align=center><img src="../material/pic/启动ShadowSocks-libev客户端.png" alt="启动ShadowSocks-libev客户端.png" title="启动ShadowSocks-libev客户端" width="100%" height="100%"/></div>
 
+#### 配置Switchyomega插件 ####
+<div align=center><img src="../material/pic/Switchyomega配置.png" alt="Switchyomega配置.png" title="Switchyomega配置.png" width="100%" height="100%"/></div>
+
+    
 ************************************************************************************************************************************************
 ### 自启动设置 ###
 >   tips:在实际测试中，配置config.json该参数文件并不能让SS的服务正常生效，而config-obfs.json可以自启动使用Systemd的方式,不再使用sysVinit,测试只在Ubuntu18.04系统下进行
